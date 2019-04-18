@@ -21,6 +21,22 @@ parts:
         organize:
             '*': blobs/
 
+    snap-boot-sel-env:
+        plugin: nil
+        source: snap-boot-sel
+        source-type: local
+        override-pull: |
+            snapcraftctl pull
+            wget https://raw.githubusercontent.com/snapcore/snapd/master/include/lk/snappy_boot_common.h
+            wget https://raw.githubusercontent.com/snapcore/snapd/master/include/lk/snappy_boot_v1.h
+        override-build: |
+            gcc lk-boot-env.c -I/usr/include/ -o lk-boot-env
+            # configure initial boot environment
+            ./lk-boot-env --write ${SNAPCRAFT_PART_INSTALL}/snapbootsel.bin \
+                          --bootimg-file boot-ifc6640.img \
+                          $( ./parse-yaml.sh ${SNAPCRAFT_PROJECT_DIR}/gadget.yaml )
+            ln -sf snapbootsel.bin ${SNAPCRAFT_PART_INSTALL}/lk.conf
+
     arm-eabi-4-8:
         plugin: dump
         source: git://codeaurora.org/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8.git

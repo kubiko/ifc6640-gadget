@@ -1,0 +1,218 @@
+device-tree-origin: kernel
+volumes:
+  lun-0:
+    schema: gpt
+    bootloader: lk
+    structure:
+      - name: writable
+        filesystem: ext4
+        filesystem-label: writable
+        size: 1G
+        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        role: system-data
+  lun-1:
+    schema: gpt
+    structure:
+      - name: xbl
+        size: 4M
+        type: DEA0BA2C-CBDD-4805-B4F9-F428251C3E98
+        content:
+            - image: blobs/xbl.elf
+  lun-2:
+    schema: gpt
+    structure:
+      - name: xblbak
+        size: 4M
+        type: DEA0BA2C-CBDD-4805-B4F9-F428251C3E98
+        content:
+            - image: blobs/xbl.elf
+  lun-3:
+    schema: gpt
+    structure:
+      - name: reserve
+        size: 32768
+        type: 7A37A18E-48F0-BCA5-935E-5795DBB57FF8
+      - name: cdt
+        size: 4096
+        type: A19F205F-CCD8-4B6D-8F1E-2D9BC24CFFB1
+        content:
+            - image: blobs/sbc_1.0_8096.bin
+      - name: ddr
+        size: 1M
+        type: 20A0C19C-286A-42FA-9CE7-F64C3226A794
+  lun-4:
+    schema: gpt
+    structure:
+      - name: rpm
+        size: 524288
+        type: 098DF793-D712-413D-9D4E-89D711772228
+        content:
+            - image: blobs/rpm.mbn
+      - name: rpmbak
+        size: 524288
+        type: 098DF793-D712-413D-9D4E-89D711772228
+        content:
+            - image: blobs/rpm.mbn
+      - name: tz
+        size: 2M
+        type: A053AA7F-40B8-4B1C-BA08-2F68AC71A4F4
+        content:
+            - image: blobs/tz.mbn
+      - name: tzbak
+        size: 2M
+        type: A053AA7F-40B8-4B1C-BA08-2F68AC71A4F4
+        content:
+            - image: blobs/tz.mbn
+      - name: hyp
+        size: 524288
+        type: E1A6A689-0C8D-4CC6-B4E8-55A4320FBD8A
+        content:
+            - image: blobs/hyp.mbn
+      - name: hypbak
+        size: 524288
+        type: E1A6A689-0C8D-4CC6-B4E8-55A4320FBD8A
+        content:
+            - image: blobs/hyp.mbn
+      - name: fsg
+        size: 2M
+        type: 638FF8E2-22C9-E33B-8F5D-0E81686A68CB
+      - name: sec
+        size: 16384
+        type: 303E6AC3-AF15-4C54-9E9B-D9A8FBECF401
+      - name: pmic
+        size: 524288
+        type: C00EEF24-7709-43D6-9799-DD2B411E7A3C
+        content:
+             - image: blobs/pmic.elf
+      - name: pmicbak
+        size: 524288
+        type: C00EEF24-7709-43D6-9799-DD2B411E7A3C
+        content:
+            - image: blobs/pmic.elf
+      - name: modem
+        size: 95M
+        type: EBD0A0A2-B9E5-4433-87C0-68B6B72699C7
+      - name: dsp
+        size: 16M
+        type: 7EFE5010-2A1A-4A1A-B8BC-990257813512
+      - name: dip
+        size: 1M
+        type: 4114B077-005D-4E12-AC8C-B493BDA684FB
+      - name: mdtp
+        size: 32M
+        type: 3878408A-E263-4B67-B878-6340B35B11E3
+      - name: aboot
+        size: 1M
+        type: 400FFDCD-22E0-47E7-9A23-F16ED9382388
+        content:
+            - image: blobs/emmc_appsboot.mbn
+      - name: abootbak
+        size: 1M
+        type: 400FFDCD-22E0-47E7-9A23-F16ED9382388
+        content:
+            - image: blobs/emmc_appsboot.mbn
+      - name: snapbootsel
+        size: 131072
+        role: system-boot-select
+        content:
+            - image: snapbootsel.bin
+        type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
+      - name: snapbootselbak
+        size: 131072
+        role: system-boot-select
+        content:
+            - image: snapbootsel.bin
+        type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
+      - name: boot
+        size: 64M
+        type: 20117F86-E985-4357-B9EE-374BC1D8487D
+        role: system-boot-image
+      - name: boot_b
+        size: 64M
+        type: 20117F86-E985-4357-B9EE-374BC1D8487D
+        role: system-boot-image
+      - name: devinfo
+        size: 4096
+        type: 65ADDCF4-0C5C-4D9A-AC2D-D90B5CBFCD03
+      - name: bluetooth
+        size: 1M
+        type: 6CB747F1-C2EF-4092-ADD0-CA39F79C7AF4
+      - name: keymaster
+        size: 524288
+        type: 4F772165-0F3C-4BA3-BBCB-A829E9C969F9
+        content:
+            - image: blobs/keymaster.mbn
+      - name: keymasterbak
+        size: 524288
+        type: 4F772165-0F3C-4BA3-BBCB-A829E9C969F9
+        content:
+            - image: blobs/keymaster.mbn
+      - name: cmnlib
+        size: 262144
+        type: 73471795-AB54-43F9-A847-4F72EA5CBEF5
+        content:
+            - image: blobs/cmnlib.mbn
+      - name: cmnlibbak
+        size: 262144
+        type: 73471795-AB54-43F9-A847-4F72EA5CBEF5
+        content:
+            - image: blobs/cmnlib.mbn
+      - name: cmnlib64
+        size: 262144
+        type: 8EA64893-1267-4A1B-947C-7C362ACAAD2C
+        content:
+            - image: blobs/cmnlib64.mbn
+      - name: cmnlib64bak
+        size: 262144
+        type: 8EA64893-1267-4A1B-947C-7C362ACAAD2C
+        content:
+            - image: blobs/cmnlib64.mbn
+      - name: apdp
+        size: 262144
+        type: E6E98DA2-E22A-4D12-AB33-169E7DEAA507
+      - name: msadp
+        size: 262144
+        type: ED9E8101-05FA-46B7-82AA-8D58770D200B
+      - name: dpo
+        size: 4096
+        type: 11406F35-1173-4869-807B-27DF71802812
+      - name: splash
+        size: 34226176
+        type: AD99F201-DC71-4E30-9630-E19EEF553D1B
+      - name: sti
+        size: 2M
+        type: AA9A5C4C-4F1F-7D3A-014A-22BD33BF7191
+  lun-5:
+    schema: gpt
+    structure:
+      - name: modemst1
+        size: 2M
+        type: EBBEADAF-22C9-E33B-8F5D-0E81686A68CB
+      - name: modemst2
+        size: 2M
+        type: 0A288B1F-22C9-E33B-8F5D-0E81686A68CB
+      - name: fsc
+        size: 4096
+        type: 57B90A16-22C9-E33B-8F5D-0E81686A68CB
+      - name: ssd
+        size: 8192
+        type: 2C86E742-745E-4FDD-BFD8-B6A7AC638772
+      - name: misc
+        size: 1M
+        type: 82ACC91F-357C-4A68-9C8F-689E1B1A23A1
+      - name: keystore
+        size: 524288
+        type: DE7D4029-0F5B-41C8-AE7E-F6C023A02B33
+      - name: devcfg
+        size: 131072
+        type: F65D4B16-343D-4E25-AAFC-BE99B6556A6D
+        content:
+            - image: blobs/devcfg.mbn
+      - name: devcfgbak
+        size: 131072
+        type: F65D4B16-343D-4E25-AAFC-BE99B6556A6D
+        content:
+            - image: blobs/devcfg.mbn
+      - name: frp
+        size: 524288
+        type: 91B72D4D-71E0-4CBF-9B8E-236381CFF17A

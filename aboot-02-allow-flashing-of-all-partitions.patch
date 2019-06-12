@@ -1,0 +1,26 @@
+From 236936f50f43f1e12c757f656f2ca086d588e97d Mon Sep 17 00:00:00 2001
+From: Ondrej Kubik <ondrej.kubik@canonical.com>
+Date: Thu, 18 Apr 2019 16:55:37 +0000
+Subject: [PATCH 3/4] ubuntu: allow flashing of all partitions
+
+Signed-off-by: Ondrej Kubik <ondrej.kubik@canonical.com>
+---
+ app/aboot/aboot.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/app/aboot/aboot.c b/app/aboot/aboot.c
+index 87efc48d..23fc8717 100644
+--- a/app/aboot/aboot.c
++++ b/app/aboot/aboot.c
+@@ -2116,7 +2116,7 @@ static bool critical_flash_allowed(const char * entry)
+ 		if(!strcmp(entry, critical_flash_allowed_ptn[i]))
+ 			return true;
+ 	}
+-	return false;
++	return true;
+ }
+ 
+ #if DEVICE_TREE
+-- 
+2.26.2
+

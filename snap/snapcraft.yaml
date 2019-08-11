@@ -21,3 +21,20 @@ parts:
         organize:
             '*': blobs/
 
+    arm-eabi-4-8:
+        plugin: dump
+        source: git://codeaurora.org/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8.git
+        source-depth: 1
+        source-tag: LA.BR.1.1.3.c4-01000-8x16.0
+        organize:
+            '*': arm-eabi-4.8/
+        prime:
+            - -*
+
+    signlk:
+        plugin: dump
+        source: https://git.linaro.org/landing-teams/working/qualcomm/signlk.git
+        source-depth: 1
+        source-type: git
+        prime:
+            - -*

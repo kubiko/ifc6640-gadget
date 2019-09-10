@@ -38,3 +38,13 @@ parts:
         source-type: git
         prime:
             - -*
+
+    partitioning-tool:
+        plugin: dump
+        source: https://github.com/kubiko/partitioning_tool.git
+        source-depth: 1
+        source-type: git
+        organize:
+            LICENSE: LICENSE_for_ptool
+        prime:
+            - -*

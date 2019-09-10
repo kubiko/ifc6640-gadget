@@ -21,6 +21,24 @@ parts:
         organize:
             '*': blobs/
 
+    firmware-blobs:
+        plugin: dump
+        source: http://snapshots.linaro.org/96boards/dragonboard820c/linaro/rescue/latest/dragonboard-820c-bootloader-ufs-linux-*.zip
+        source-type: zip
+        organize:
+             '*/*': blobs/
+        stage:
+            - -dragonboard-820c*
+            - -blobs/flashall
+            - -blobs/MD5SUMS.txt
+            - -blobs/NON-HLOS.bin
+            - -blobs/gpt_backup*.bin
+            - -blobs/gpt_both*.bin
+            - -blobs/gpt*
+            - -blobs/emmc_appsboot.mbn
+            - -blobs/rawprogram*
+            - -blobs/patch*
+
     gpt-partitions:
         plugin: nil
         source: qdl

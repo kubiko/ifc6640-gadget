@@ -151,3 +151,41 @@ parts:
             LICENSE: LICENSE_for_ptool
         prime:
             - -*
+
+slots:
+  gpio-318:
+    interface: gpio
+    number: 318
+  gpio-322:
+    interface: gpio
+    number: 322
+  gpio-332:
+    interface: gpio
+    number: 332
+  gpio-340:
+    interface: gpio
+    number: 340
+  gpio-362:
+    interface: gpio
+    number: 362
+  i2c-0:
+    interface: i2c
+    path: /dev/i2c-0
+  i2c-1:
+    interface: i2c
+    path: /dev/i2c-1
+  i2c-2:
+    interface: i2c
+    path: /dev/i2c-2
+  i2c-3:
+    interface: i2c
+    path: /dev/i2c-3
+  i2c-4:
+    interface: i2c
+    path: /dev/i2c-4
+  spi-0:
+    interface: spi
+    path: /dev/spidev0.0
+  spi-1:
+    interface: spi
+    path: /dev/spidev0.1

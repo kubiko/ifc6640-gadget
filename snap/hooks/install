@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# set serial number from /proc/cmdline
+serial="$(sed -e 's/.*androidboot.serialno=\(.*\) .*/\1/' /proc/cmdline | awk '{print $1}')" || true
+if [ -n "${serial}" ]; then
+    snapctl set registration.proposed-serial="db820c-${serial}" || true
+fi

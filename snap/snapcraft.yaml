@@ -151,6 +151,12 @@ parts:
             LICENSE: LICENSE_for_ptool
         prime:
             - -*
+build-packages:
+    - python3
+    - gwenhywfar-tools
+    - build-essential
+    - wget
+
 
 slots:
   gpio-318:

@@ -4,6 +4,16 @@ volumes:
     schema: gpt
     bootloader: lk
     structure:
+      - name: seed
+        filesystem: ext4
+        filesystem-label: seed
+        size: 500M
+        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+      - name: save
+        filesystem: ext4
+        filesystem-label: save
+        size: 50M
+        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
       - name: writable
         filesystem: ext4
         filesystem-label: writable
@@ -167,6 +177,11 @@ volumes:
         type: 8EA64893-1267-4A1B-947C-7C362ACAAD2C
         content:
             - image: blobs/cmnlib64.mbn
+      # recovery boot image
+      - name: boot_r
+        size: 64M
+        # role: system-recovery-image
+        type: 33E4770F-6129-40C8-A93D-14C44375A941
       - name: apdp
         size: 262144
         type: E6E98DA2-E22A-4D12-AB33-169E7DEAA507

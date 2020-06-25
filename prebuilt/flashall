@@ -80,12 +80,17 @@ fi
 echo "Cleaning boot critical partitions"
 fastboot erase snapbootsel
 fastboot erase snapbootselbak
+fastboot format writabe
+if [ "${FORMAT_HARD}" = "true" ]; then
+  fastboot erase save
+fi
 
 echo "Flashing Ubuntu images"
 fastboot flash boot boot-ifc6640.img
+
 fastboot flash snapbootsel snapbootsel.bin
 fastboot flash snapbootselbak snapbootsel.bin
-fastboot flash writable writable.img
+fastboot flash seed seed.img
 
 if [ "${REBOOT}" = "true" ]; then
   fastboot reboot

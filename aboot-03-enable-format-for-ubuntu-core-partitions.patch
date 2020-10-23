@@ -1,0 +1,32 @@
+From 922d04e9a75a600ab701f3c155419f1d301889c2 Mon Sep 17 00:00:00 2001
+From: Ondrej Kubik <ondrej.kubik@canonical.com>
+Date: Fri, 23 Oct 2020 15:33:34 +0100
+Subject: [PATCH 4/4] ubuntu: enable format for ubuntu core partition names
+
+Signed-off-by: Ondrej Kubik <ondrej.kubik@canonical.com>
+---
+ app/aboot/aboot.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/app/aboot/aboot.c b/app/aboot/aboot.c
+index 23fc8717..b285f40b 100644
+--- a/app/aboot/aboot.c
++++ b/app/aboot/aboot.c
+@@ -254,9 +254,11 @@ struct getvar_partition_info {
+  */
+ struct getvar_partition_info part_info[] =
+ {
+-	{ "system"  , "partition-size:", "partition-type:", "", "ext4" },
+-	{ "userdata", "partition-size:", "partition-type:", "", "ext4" },
+-	{ "cache"   , "partition-size:", "partition-type:", "", "ext4" },
++	{ "writable"      , "partition-size:", "partition-type:", "", "ext4" },
++	{ "seed"          , "partition-size:", "partition-type:", "", "ext4" },
++	{ "ubuntu-boot"   , "partition-size:", "partition-type:", "", "ext4" },
++	{ "ubuntu-seed"   , "partition-size:", "partition-type:", "", "ext4" },
++	{ "ubuntu-data"   , "partition-size:", "partition-type:", "", "ext4" },
+ };
+ 
+ char max_download_size[MAX_RSP_SIZE];
+-- 
+2.26.2
+

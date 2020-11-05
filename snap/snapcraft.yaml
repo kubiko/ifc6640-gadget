@@ -21,6 +21,40 @@ parts:
         organize:
             '*': blobs/
 
+    gpt-partitions:
+        plugin: nil
+        source: qdl
+        after:
+            - partitioning-tool
+        override-build: |
+            echo "Updating partition.xml sizes from gadget.yaml"
+            sizes=$(grep -e 'size' ${SNAPCRAFT_PROJECT_DIR}/gadget.yaml | awk -F ": " '{ print $2}')
+            for name in $(grep -e '- name:' ${SNAPCRAFT_PROJECT_DIR}/gadget.yaml | awk -F ": " '{ print $2}')
+            do
+               set $sizes; size=$1; shift; sizes="$*";
+               case $size in
+                    (0)  size="0" ;;
+                    (*G | *g) size=$(expr $(echo $size | sed -e 's/G//g' -e 's/g//g') \* 1024 \* 1024) ;;
+                    (*M | *m) size=$(expr $(echo $size | sed -e 's/M//g' -e 's/m//g') \* 1024) ;;
+                    (*K | *k) size=$(echo $size | sed -e 's/K//g' -e 's/k//g') ;;
+                    (*) size=$(expr $size / 1024) ;;
+                esac
+                sed -i 's/\"'"${name}"'-size\"/\"'"${size}"'\"/g' partition.xml
+            done
+            python3 ${SNAPCRAFT_STAGE}/ptool.py -x partition.xml -t .
+            [ -e rawprogram0_BLANK_GPT.xml ] && rm rawprogram*_BLANK_GPT.xml
+            [ -e rawprogram0_WIPE_PARTITIONS.xml ] && rm rawprogram*_WIPE_PARTITIONS.xml
+            xmlmerge rawprogram*.xml -o ${SNAPCRAFT_PART_INSTALL}/rawprogram.xml
+            xmlmerge patch*.xml -o ${SNAPCRAFT_PART_INSTALL}/patch.xml
+            cp gpt_* ${SNAPCRAFT_PART_INSTALL}/
+        organize:
+             '*': blobs/
+        stage:
+            - blobs/gpt_b*.bin
+            - blobs/gpt_main*.bin
+            - blobs/patch.xml
+            - blobs/rawprogram.xml
+
     snap-boot-sel-env:
         plugin: nil
         source: snap-boot-sel

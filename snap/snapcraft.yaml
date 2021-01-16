@@ -1,11 +1,11 @@
 name: ifc6640
-version: 18-1
+version: 20-1
 summary: IFC6640 support package
 description: |
  Support files for booting Inforce IFC6640
 type: gadget
 
-base: core18
+base: core20
 
 architectures:
   - build-on: [amd64, arm64]

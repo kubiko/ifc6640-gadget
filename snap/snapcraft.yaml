@@ -36,8 +36,8 @@ parts:
           # get refrence snappy boot environment
           wget https://raw.githubusercontent.com/snapcore/snapd/master/include/lk/snappy_boot_common.h \
             -O app/aboot/snappy_boot_common.h
-          wget https://raw.githubusercontent.com/snapcore/snapd/master/include/lk/snappy_boot_v1.h \
-            -O app/aboot/snappy_boot_v1.h
+          wget https://raw.githubusercontent.com/snapcore/snapd/master/include/lk/snappy_boot_v2.h \
+            -O app/aboot/snappy_boot_v2.h
         override-build: |
           export TOOLCHAIN_PREFIX=${SNAPCRAFT_STAGE}/arm-eabi-4.8/bin/arm-eabi-
           make -j$(nproc) msm8996 EMMC_BOOT=1 \

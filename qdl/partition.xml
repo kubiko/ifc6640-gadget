@@ -43,7 +43,10 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <!-- This is LUN 0 - HLOS LUN" -->
     <physical_partition>
-        <partition label="writable" size_in_kb="writable-size" type="83,0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" filename="writable.raw" sparse="true"/>
+        <partition label="ubuntu-save" size_in_kb="ubuntu-save-size" type="CA7D7CCB-63ED-4C53-861C-1742536059CC" bootable="false" readonly="false" />
+        <partition label="ubuntu-boot" size_in_kb="ubuntu-boot-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" uc20_install_created="true" />
+        <partition label="ubuntu-seed" size_in_kb="ubuntu-seed-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" filename="ubuntu-seed.raw"/>
+        <partition label="ubuntu-data" size_in_kb="ubuntu-data-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" uc20_install_created="true" />
     </physical_partition>
 
     <!-- This is LUN 1 - Boot LUN A" -->
@@ -82,10 +85,14 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <partition label="mdtp" size_in_kb="mdtp-size" type="3878408A-E263-4B67-B878-6340B35B11E3" bootable="false" readonly="true" filename=""/>
         <partition label="aboot" size_in_kb="aboot-size" type="400FFDCD-22E0-47E7-9A23-F16ED9382388" bootable="false" readonly="true" filename="emmc_appsboot.mbn"/>
         <partition label="abootbak" size_in_kb="abootbak-size" type="400FFDCD-22E0-47E7-9A23-F16ED9382388" bootable="false" readonly="true" filename="emmc_appsboot.mbn"/>
-        <partition label="boot" size_in_kb="boot-size" type="20117F86-E985-4357-B9EE-374BC1D8487D" bootable="false" readonly="true" filename="boot.img" />
-        <partition label="boot_b" size_in_kb="boot_b-size" type="20117F86-E985-4357-B9EE-374BC1D8487D" bootable="false" readonly="true" filename="boot.img" />
+        <partition label="snaprecoverysel" size_in_kb="snaprecoverysel-size" type="B214D5E4-D442-45E6-B8C6-01BDCD82D396" bootable="false" readonly="false" filename="snaprecoverysel.bin"/>
+        <partition label="snaprecoveryselbak" size_in_kb="snaprecoveryselbak-size" type="B214D5E4-D442-45E6-B8C6-01BDCD82D396" bootable="false" readonly="false" filename="snaprecoverysel.bin"/>
         <partition label="snapbootsel" size_in_kb="snapbootsel-size" type="B214D5E4-D442-45E6-B8C6-01BDCD82D396" bootable="false" readonly="false" filename="snapbootsel.bin"/>
         <partition label="snapbootselbak" size_in_kb="snapbootselbak-size" type="B214D5E4-D442-45E6-B8C6-01BDCD82D396" bootable="false" readonly="false" filename="snapbootsel.bin"/>
+        <partition label="boot_ra" size_in_kb="boot_ra-size" type="20117F86-E985-4357-B9EE-374BC1D8487D" bootable="false" readonly="true" filename="boot-db410c.img"/>
+        <partition label="boot_rb" size_in_kb="boot_rb-size" type="20117F86-E985-4357-B9EE-374BC1D8487D" bootable="false" readonly="true" />
+        <partition label="boot_a" size_in_kb="boot_a-size" type="20117F86-E985-4357-B9EE-374BC1D8487D" bootable="false" readonly="true" filename="boot.img" />
+        <partition label="boot_b" size_in_kb="boot_b-size" type="20117F86-E985-4357-B9EE-374BC1D8487D" bootable="false" readonly="true" filename="boot.img" />
         <partition label="devinfo" size_in_kb="devinfo-size" type="65ADDCF4-0C5C-4D9A-AC2D-D90B5CBFCD03" bootable="false" readonly="true" filename=""/>
         <partition label="bluetooth" size_in_kb="bluetooth-size" type="6cb747f1-c2ef-4092-add0-ca39f79c7af4" bootable="false" readonly="true" filename="BTFM.bin"/>
         <partition label="keymaster" size_in_kb="keymaster-size" type="4F772165-0F3C-4BA3-BBCB-A829E9C969F9" bootable="false" readonly="true" filename="keymaster.mbn" />

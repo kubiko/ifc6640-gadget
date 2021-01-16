@@ -119,10 +119,15 @@ parts:
         override-build: |
             gcc lk-boot-env.c -I/usr/include/ -o lk-boot-env
             # configure initial boot environment
-            ./lk-boot-env --write ${SNAPCRAFT_PART_INSTALL}/snapbootsel.bin \
-                          --bootimg-file boot-ifc6640.img \
-                          $( ./parse-yaml.sh ${SNAPCRAFT_PROJECT_DIR}/gadget.yaml )
-            ln -sf snapbootsel.bin ${SNAPCRAFT_PART_INSTALL}/lk.conf
+            ./lk-boot-env --runtime --write ${SNAPCRAFT_PART_INSTALL}/snapbootsel.bin \
+                          --bootimg-file boot-db820c.img \
+                          $( ./parse-yaml.sh ${SNAPCRAFT_PROJECT_DIR}/gadget.yaml runtime )
+            ./lk-boot-env --recovery --write ${SNAPCRAFT_PART_INSTALL}/snaprecoverysel.bin \
+                          --bootimg-file boot-db820c.img \
+                          $( ./parse-yaml.sh ${SNAPCRAFT_PROJECT_DIR}/gadget.yaml recovery )
+            ln -sf snaprecoverysel.bin ${SNAPCRAFT_PART_INSTALL}/lk.conf
+        organize:
+            snapbootsel.bin: blobs/snapbootsel.bin
 
     arm-eabi-4-8:
         plugin: dump

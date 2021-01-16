@@ -4,9 +4,22 @@ volumes:
     schema: gpt
     bootloader: lk
     structure:
-      - name: writable
+      - name: ubuntu-save
+        size: 10485760
+        type: CA7D7CCB-63ED-4C53-861C-1742536059CC
+        # role: system-save
+      - name: ubuntu-boot
         filesystem: ext4
-        filesystem-label: writable
+        size: 10485760
+        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        role: system-boot
+      - name: ubuntu-seed
+        filesystem: ext4
+        size: 500M
+        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        role: system-seed
+      - name: ubuntu-data
+        filesystem: ext4
         size: 1G
         type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
         role: system-data
@@ -111,19 +124,43 @@ volumes:
         type: 400FFDCD-22E0-47E7-9A23-F16ED9382388
         content:
             - image: blobs/emmc_appsboot.mbn
+      - name: snaprecoverysel
+        size: 131072
+        passthrough:
+          role: system-recovery-select
+        content:
+            - image: snaprecoverysel.bin
+        type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
+      - name: snaprecoveryselbak
+        size: 131072
+        passthrough:
+          role: system-recovery-select
+        content:
+            - image: snaprecoverysel.bin
+        type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
       - name: snapbootsel
         size: 131072
         role: system-boot-select
         content:
-            - image: snapbootsel.bin
+            - image: blobs/snapbootsel.bin
         type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
       - name: snapbootselbak
         size: 131072
         role: system-boot-select
         content:
-            - image: snapbootsel.bin
+            - image: blobs/snapbootsel.bin
         type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
-      - name: boot
+      - name: boot_ra
+        size: 41943040
+        type: 20117F86-E985-4357-B9EE-374BC1D8487D
+        passthrough:
+          role: system-recovery-image
+      - name: boot_rb
+        size: 41943040
+        type: 20117F86-E985-4357-B9EE-374BC1D8487D
+        passthrough:
+          role: system-recovery-image
+      - name: boot_a
         size: 64M
         type: 20117F86-E985-4357-B9EE-374BC1D8487D
         role: system-boot-image

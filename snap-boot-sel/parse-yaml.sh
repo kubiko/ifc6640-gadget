@@ -45,6 +45,9 @@ get_part_names() {
     x=$((x+1))
   done
 }
-# volumes__structure_18_role
-echo -e $(get_part_names ${1} 'system-boot-image\|bootimg' '--boot-' ) \
-        $(get_part_names ${1} 'system-recovery-image' '--recovery-' ) \
+if [ "${2}" = "recovery" ]; then
+  echo -e $(get_part_names ${1} 'system-seed-image' '--recovery-' )
+fi
+if [ "${2}" = "runtime" ]; then
+  echo -e $(get_part_names ${1} 'system-boot-image\|bootimg' '--boot-' )
+fi

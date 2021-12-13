@@ -84,21 +84,23 @@ parts:
                     (*K | *k) size=$(echo $size | sed -e 's/K//g' -e 's/k//g') ;;
                     (*) size=$(expr $size / 1024) ;;
                 esac
-                sed -i 's/\"'"${name}"'-size\"/\"'"${size}"'\"/g' partition.xml
+                sed -i \
+                    -e 's/\"'"${name}"'-size\"/\"'"${size}"'\"/g' \
+                    partition.xml
             done
             python3 ${SNAPCRAFT_STAGE}/ptool.py -x partition.xml -t .
             [ -e rawprogram0_BLANK_GPT.xml ] && rm rawprogram*_BLANK_GPT.xml
             [ -e rawprogram0_WIPE_PARTITIONS.xml ] && rm rawprogram*_WIPE_PARTITIONS.xml
-            xmlmerge rawprogram*.xml -o ${SNAPCRAFT_PART_INSTALL}/rawprogram.xml
-            xmlmerge patch*.xml -o ${SNAPCRAFT_PART_INSTALL}/patch.xml
-            cp gpt_* ${SNAPCRAFT_PART_INSTALL}/
+            cp rawprogram*.xml ${SNAPCRAFT_PART_INSTALL}
+            cp patch*.xml ${SNAPCRAFT_PART_INSTALL}
+            cp gpt_* ${SNAPCRAFT_PART_INSTALL}
         organize:
              '*': blobs/
         stage:
             - blobs/gpt_b*.bin
             - blobs/gpt_main*.bin
-            - blobs/patch.xml
-            - blobs/rawprogram.xml
+            - blobs/patch*.xml
+            - blobs/rawprogram*.xml
 
     snap-boot-sel-env:
         plugin: nil

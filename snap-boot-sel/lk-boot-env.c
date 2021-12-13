@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2019 Canonical Ltd
+ * Copyright (C) 2021 Canonical Ltd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -253,13 +253,19 @@ void print_recovery_environment(const SNAP_RECOVERY_BOOT_SELECTION_t *recoverySe
     print_keys_value("bootimg_file_name", recoverySel->bootimg_file_name);
 }
 
+void check_env_is_valid(void* env, int opt) {
+    if (!env) {
+        printf( "Option -%c is not supported by this env type\n", opt);
+        exit(EXIT_FAILURE);
+    }
+}
 
 int main (int argc, char **argv) {
     SNAP_RUN_BOOT_SELECTION_t *bootSel = NULL;
     SNAP_RECOVERY_BOOT_SELECTION_t *recoverySel = NULL;
     FILE *fp = NULL;
-    int opt= 0;
-    size_t bwriten =0;
+    int opt = 0;
+    size_t bwriten = 0;
     enum Modes mode = unknown;
     static struct option long_options[] = {
         // long name      | has argument  | flag | short value
@@ -370,6 +376,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->kernel_status, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'b' :
@@ -378,6 +385,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->snap_kernel, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'c' :
@@ -386,6 +394,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->snap_try_kernel, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'g' :
@@ -394,6 +403,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->bootimg_matrix[0][0], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'i' :
@@ -402,6 +412,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->bootimg_matrix[1][0], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'j' :
@@ -410,6 +421,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->bootimg_matrix[0][1], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'k' :
@@ -418,6 +430,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->bootimg_matrix[1][1], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'l' :
@@ -438,6 +451,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->gadget_asset_matrix[0][0], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'n' :
@@ -446,6 +460,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->gadget_asset_matrix[1][0], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'o' :
@@ -454,6 +469,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->gadget_asset_matrix[1][0], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'p' :
@@ -462,6 +478,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->gadget_asset_matrix[1][1], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'q' :
@@ -470,6 +487,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->gadget_mode, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 's' :
@@ -478,6 +496,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->snap_gadget, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 't' :
@@ -486,6 +505,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(bootSel, opt);
               strncpy(bootSel->snap_try_gadget, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'd' :
@@ -494,6 +514,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(recoverySel, opt);
               strncpy(recoverySel->snapd_recovery_mode, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'e' :
@@ -502,6 +523,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(recoverySel, opt);
               strncpy(recoverySel->snapd_recovery_system, optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'v' :
@@ -510,6 +532,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(recoverySel, opt);
               strncpy(recoverySel->bootimg_matrix[0][0], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'x' :
@@ -518,6 +541,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(recoverySel, opt);
               strncpy(recoverySel->bootimg_matrix[1][0], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'y' :
@@ -526,6 +550,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(recoverySel, opt);
               strncpy(recoverySel->bootimg_matrix[0][1], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'z' :
@@ -534,6 +559,7 @@ int main (int argc, char **argv) {
                   print_usage();
                   exit(EXIT_FAILURE);
               }
+              check_env_is_valid(recoverySel, opt);
               strncpy(recoverySel->bootimg_matrix[1][1], optarg, SNAP_NAME_MAX_LEN);
               break;
           case 'h' :
@@ -553,6 +579,7 @@ int main (int argc, char **argv) {
         // bwriten = fwrite(bootSel, sizeof(SNAP_RUN_BOOT_SELECTION_t), 1, fp);
         bwriten = fwrite(bootSel, 1, sizeof(SNAP_RUN_BOOT_SELECTION_t), fp);
         printf( "Written %ld bytes\n", bwriten);
+        print_runtime_environment(bootSel);
         free(bootSel);
     }
     if (recoverySel) {

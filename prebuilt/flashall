@@ -10,6 +10,8 @@ if [ "${1}" = "-h" ] || [ "${1}" = "--help" ]; then
   echo -e "\t-f | --full: repartition emmc, but do not erase ubuntu-save partition"
   echo -e "\t-H | --hard-reset: same as full + format of ubuntu-save partition"
   echo -e "\t-r | --reboot: reboot device when flashing is completed"
+  echo -e "\t-s | --sec <sec.elf file name>: flash passed file to sec partition."
+  echo -e "\t\t!!!!Attention: This will likely blow fuses on  your board!!!!!!"
   echo -e "\t-h | --help: this help"
   exit
 fi
@@ -26,6 +28,15 @@ while [ "$1" != "" ]; do
             ;;
         -r | --reboot)
             REBOOT="true"
+            ;;
+        -s | --sec)
+            if [ -e "${2}" ]; then
+              SEC_ELF="${2}"
+            else
+              echo -e "Sec file [${2}] does not exist, pass correct file name!"
+              exit
+            fi
+            shift
             ;;
         --help | -h)
             print_usage
@@ -77,13 +88,16 @@ if [ "${REPARTITION}" = "true" ]; then
   [ -e sec.dat ] && fastboot flash sec sec.dat
 fi
 
+if [ -n "${SEC_ELF}" ]; then
+  echo "!!! Flashing sec partition with ${SEC_ELF} !!!"
+  fastboot flash sec ${SEC_ELF}
+fi
+
+# Ubuntu partitions
 echo "Cleaning boot critical partitions"
 fastboot erase boot_ra
-fastboot format ubuntu-data
-fastboot erase snapbootsel
-fastboot erase snapbootselbak
-fastboot erase snaprecoverysel
-fastboot erase snaprecoveryselbak
+fastboot erase ubuntu-boot
+fastboot erase ubuntu-data
 if [ "${FORMAT_HARD}" = "true" ]; then
   fastboot erase ubuntu-save
 fi

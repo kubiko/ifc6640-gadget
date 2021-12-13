@@ -26,18 +26,10 @@ parts:
         after:
             - arm-eabi-4-8
             - signlk
-        source: http://git.linaro.org/landing-teams/working/qualcomm/lk.git
-        source-branch: release/LA.HB.1.3.2-19600-8x96.0
-        override-pull: |
-          snapcraftctl pull
-          if ls ${SNAPCRAFT_PROJECT_DIR}/aboot-*.patch 1> /dev/null 2>&1; then
-              git apply ${SNAPCRAFT_PROJECT_DIR}/aboot-*.patch
-          fi
-          # get refrence snappy boot environment
-          wget https://raw.githubusercontent.com/snapcore/snapd/master/include/lk/snappy_boot_common.h \
-            -O app/aboot/snappy_boot_common.h
-          wget https://raw.githubusercontent.com/snapcore/snapd/master/include/lk/snappy_boot_v2.h \
-            -O app/aboot/snappy_boot_v2.h
+        source: https://git.launchpad.net/~ondrak/+git/lk
+        source-type: git
+        source-depth: 1
+        source-branch: release/LA.HB.1.3.2-19600-8x96.0+uc20
         override-build: |
           export TOOLCHAIN_PREFIX=${SNAPCRAFT_STAGE}/arm-eabi-4.8/bin/arm-eabi-
           make -j$(nproc) msm8996 EMMC_BOOT=1 \

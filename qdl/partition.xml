@@ -43,10 +43,10 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <!-- This is LUN 0 - HLOS LUN" -->
     <physical_partition>
+        <partition label="ubuntu-seed" size_in_kb="ubuntu-seed-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" filename="ubuntu-seed.img"/>
         <partition label="ubuntu-save" size_in_kb="ubuntu-save-size" type="CA7D7CCB-63ED-4C53-861C-1742536059CC" bootable="false" readonly="false" />
-        <partition label="ubuntu-boot" size_in_kb="ubuntu-boot-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" uc20_install_created="true" />
-        <partition label="ubuntu-seed" size_in_kb="ubuntu-seed-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" filename="ubuntu-seed.raw"/>
-        <partition label="ubuntu-data" size_in_kb="ubuntu-data-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" uc20_install_created="true" />
+        <partition label="ubuntu-boot" size_in_kb="ubuntu-boot-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" />
+        <partition label="ubuntu-data" size_in_kb="ubuntu-data-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" />
     </physical_partition>
 
     <!-- This is LUN 1 - Boot LUN A" -->

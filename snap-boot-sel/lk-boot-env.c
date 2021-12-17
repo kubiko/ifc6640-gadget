@@ -185,7 +185,7 @@ SNAP_RECOVERY_BOOT_SELECTION_t* read_validate_recovery_environment(FILE *fp, enu
     return recoverySel;
 }
 
-// cleane clean boot select environment
+// create clean boot select environment
 SNAP_RUN_BOOT_SELECTION_t* create_clean_runtime_environment() {
     SNAP_RUN_BOOT_SELECTION_t *bootSel;
     bootSel = (SNAP_RUN_BOOT_SELECTION_t *)malloc(sizeof(SNAP_RUN_BOOT_SELECTION_t));
@@ -200,7 +200,7 @@ SNAP_RUN_BOOT_SELECTION_t* create_clean_runtime_environment() {
     return bootSel;
 }
 
-// cleane clean recovery select environment
+// create clean recovery select environment
 SNAP_RECOVERY_BOOT_SELECTION_t* create_clean_recovery_environment() {
     SNAP_RECOVERY_BOOT_SELECTION_t *recoverySel;
     recoverySel = (SNAP_RECOVERY_BOOT_SELECTION_t *)malloc(sizeof(SNAP_RECOVERY_BOOT_SELECTION_t));

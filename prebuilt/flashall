@@ -7,7 +7,7 @@ if [ "${1}" = "-h" ] || [ "${1}" = "--help" ]; then
   echo -e "By default only partitions essential to boot are re-flashed"
   echo -e "\t\tboot_ra, ubuntu-seed, snapbootsel(bak), snaprecoverysel(bak)"
   echo -e "\nOptional parameters:"
-  echo -e "\t-f | --full: repartition emmc, but do not erase ubuntu-save partition"
+  echo -e "\t-f | --full: repartition the storage, but do not erase ubuntu-save partition"
   echo -e "\t-H | --hard-reset: same as full + format of ubuntu-save partition"
   echo -e "\t-r | --reboot: reboot device when flashing is completed"
   echo -e "\t-s | --sec <sec.elf file name>: flash passed file to sec partition."
@@ -15,6 +15,7 @@ if [ "${1}" = "-h" ] || [ "${1}" = "--help" ]; then
   echo -e "\t-h | --help: this help"
   exit
 fi
+
 unset FORMAT REBOOT
 while [ "$1" != "" ]; do
     case $1 in
@@ -62,30 +63,38 @@ if [ "${REPARTITION}" = "true" ]; then
   fastboot flash partition:4 gpt_both4.bin
   fastboot flash partition:5 gpt_both5.bin
 
-  fastboot erase ddr
-
-  fastboot flash cdt sbc_1.0_8096.bin
+  ## lun 1
   fastboot flash xbl xbl.elf
+
+  ## lun 2
   fastboot flash xblbak xbl.elf
+
+  ## lun 3
+  fastboot flash cdt sbc_1.0_8096.bin
+
+  ## lun 4
+  # a partitions
   fastboot flash rpm rpm.mbn
-  fastboot flash rpmbak rpm.mbn
   fastboot flash tz tz.mbn
-  fastboot flash tzbak tz.mbn
   fastboot flash hyp hyp.mbn
-  fastboot flash hypbak hyp.mbn
   fastboot flash pmic pmic.elf
-  fastboot flash pmicbak pmic.elf
   fastboot flash aboot emmc_appsboot.mbn
-  fastboot flash abootbak emmc_appsboot.mbn
   fastboot flash devcfg devcfg.mbn
-  fastboot flash devcfgbak devcfg.mbn
   fastboot flash cmnlib64 cmnlib64.mbn
-  fastboot flash cmnlib64bak cmnlib64.mbn
   fastboot flash cmnlib cmnlib.mbn
-  fastboot flash cmnlibbak cmnlib.mbn
   fastboot flash keymaster keymaster.mbn
+  # b partitions
+  fastboot flash rpmbak rpm.mbn
+  fastboot flash tzbak tz.mbn
+  fastboot flash hypbak hyp.mbn
+  fastboot flash pmicbak pmic.elf
+  fastboot flash abootbak emmc_appsboot.mbn
+  fastboot flash devcfgbak devcfg.mbn
+  fastboot flash cmnlib64bak cmnlib64.mbn
+  fastboot flash cmnlibbak cmnlib.mbn
   fastboot flash keymasterbak keymaster.mbn
-  [ -e sec.dat ] && fastboot flash sec sec.dat
+  # non a/b partitions
+  ## lun 5
 fi
 
 if [ -n "${SEC_ELF}" ]; then
@@ -95,7 +104,6 @@ fi
 
 # Ubuntu partitions
 echo "Cleaning boot critical partitions"
-fastboot erase boot_ra
 fastboot erase ubuntu-boot
 fastboot erase ubuntu-data
 if [ "${FORMAT_HARD}" = "true" ]; then

@@ -7,21 +7,22 @@ volumes:
       - name: ubuntu-seed
         filesystem: ext4
         size: 500M
-        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        type: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
         role: system-seed
       - name: ubuntu-save
-        size: 10485760
-        type: CA7D7CCB-63ED-4C53-861C-1742536059CC
-        # role: system-save
+        filesystem: ext4
+        size: 20M
+        type: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        role: system-save
       - name: ubuntu-boot
         filesystem: ext4
-        size: 10485760
-        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        size: 10M
+        type: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
         role: system-boot
       - name: ubuntu-data
         filesystem: ext4
         size: 1G
-        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        type: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
         role: system-data
   lun-1:
     schema: gpt
@@ -126,15 +127,13 @@ volumes:
             - image: blobs/emmc_appsboot.mbn
       - name: snaprecoverysel
         size: 131072
-        passthrough:
-          role: system-recovery-select
+        role: system-seed-select
         content:
             - image: snaprecoverysel.bin
         type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
       - name: snaprecoveryselbak
         size: 131072
-        passthrough:
-          role: system-recovery-select
+        role: system-seed-select
         content:
             - image: snaprecoverysel.bin
         type: B214D5E4-D442-45E6-B8C6-01BDCD82D396
@@ -153,13 +152,11 @@ volumes:
       - name: boot_ra
         size: 41943040
         type: 20117F86-E985-4357-B9EE-374BC1D8487D
-        passthrough:
-          role: system-recovery-image
+        role: system-seed-image
       - name: boot_rb
         size: 41943040
         type: 20117F86-E985-4357-B9EE-374BC1D8487D
-        passthrough:
-          role: system-recovery-image
+        role: system-seed-image
       - name: boot_a
         size: 64M
         type: 20117F86-E985-4357-B9EE-374BC1D8487D
@@ -253,3 +250,9 @@ volumes:
       - name: frp
         size: 524288
         type: 91B72D4D-71E0-4CBF-9B8E-236381CFF17A
+
+defaults:
+  # system watchdog settings
+  system:
+    refresh:
+      retain: 2

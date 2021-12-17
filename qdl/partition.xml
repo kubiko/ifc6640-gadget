@@ -36,27 +36,27 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         WRITE_PROTECT_BOUNDARY_IN_KB=0
         SECTOR_SIZE_IN_BYTES = 4096
         GROW_LAST_PARTITION_TO_FILL_DISK=true
-        FIRST_SECTOR_OF_FIRST_PARTITION = 256
+        FIRST_SECTOR_OF_FIRST_PARTITION=256
     </parser_instructions>
 
     <!-- NOTE: "physical_partition" are listed in order and apply to UFS devices that have physical partitions -->
 
     <!-- This is LUN 0 - HLOS LUN" -->
     <physical_partition>
-        <partition label="ubuntu-seed" size_in_kb="ubuntu-seed-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" filename="ubuntu-seed.img"/>
-        <partition label="ubuntu-save" size_in_kb="ubuntu-save-size" type="CA7D7CCB-63ED-4C53-861C-1742536059CC" bootable="false" readonly="false" />
+        <partition label="ubuntu-seed" size_in_kb="ubuntu-seed-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" filename="ubuntu-seed.img" sparse="true"/>
+        <partition label="ubuntu-save" size_in_kb="ubuntu-save-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" />
         <partition label="ubuntu-boot" size_in_kb="ubuntu-boot-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" />
         <partition label="ubuntu-data" size_in_kb="ubuntu-data-size" type="0FC63DAF-8483-4772-8E79-3D69D8477DE4" bootable="false" readonly="false" sparse="true" />
     </physical_partition>
 
     <!-- This is LUN 1 - Boot LUN A" -->
     <physical_partition>
-        <partition label="xbl" size_in_kb="0" type="DEA0BA2C-CBDD-4805-B4F9-F428251C3E98" bootable="false" readonly="true" filename="xbl.elf"/>
+        <partition label="xbl" size_in_kb="xbl-size" type="DEA0BA2C-CBDD-4805-B4F9-F428251C3E98" bootable="false" readonly="true" filename="xbl.elf"/>
     </physical_partition>
 
     <!-- This is LUN 2 - Boot LUN B" -->
     <physical_partition>
-        <partition label="xblbak" size_in_kb="0" type="DEA0BA2C-CBDD-4805-B4F9-F428251C3E98" bootable="false" readonly="true" filename="xbl.elf"/>
+        <partition label="xblbak" size_in_kb="xblbak-size" type="DEA0BA2C-CBDD-4805-B4F9-F428251C3E98" bootable="false" readonly="true" filename="xbl.elf"/>
     </physical_partition>
 
     <!-- This is LUN 3 - OTP LUN" -->
@@ -68,7 +68,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </physical_partition>
 
     <!-- This is LUN 4 - Protected Read-only LUN" -->
-     <physical_partition>
+    <physical_partition>
         <partition label="rpm" size_in_kb="rpm-size" type="098DF793-D712-413D-9D4E-89D711772228" bootable="false" readonly="true" filename="rpm.mbn"/>
         <partition label="rpmbak" size_in_kb="rpmbak-size" type="098DF793-D712-413D-9D4E-89D711772228" bootable="false" readonly="true" filename="rpm.mbn"/>
         <partition label="tz" size_in_kb="tz-size" type="A053AA7F-40B8-4B1C-BA08-2F68AC71A4F4" bootable="false" readonly="true" filename="tz.mbn"/>

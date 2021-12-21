@@ -111,7 +111,7 @@ if [ "${FORMAT_HARD}" = "true" ]; then
 fi
 
 echo "Flashing Ubuntu images"
-fastboot flash boot_ra boot-db820c.img
+fastboot flash boot_ra boot.img
 fastboot flash snaprecoverysel snaprecoverysel.bin
 fastboot flash snaprecoveryselbak snaprecoverysel.bin
 fastboot flash snapbootsel snapbootsel.bin
